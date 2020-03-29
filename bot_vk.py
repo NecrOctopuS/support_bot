@@ -8,12 +8,12 @@ import telegram
 
 
 load_dotenv()
-TELEGRAM_TOKEN = os.getenv['TELEGRAM_TOKEN']
-VK_TOKEN = os.getenv['VK_TOKEN']
-PROJECT_ID = os.getenv['PROJECT_ID']
+TELEGRAM_TOKEN = os.environ['TELEGRAM_TOKEN']
+VK_TOKEN = os.environ['VK_TOKEN']
+PROJECT_ID = os.environ['PROJECT_ID']
 LANGUAGE_CODE = 'ru'
-GOOGLE_APPLICATION_CREDENTIALS = os.getenv['GOOGLE_APPLICATION_CREDENTIALS']
-TELEGRAM_ID = os.getenv['TELEGRAM_ID']
+GOOGLE_APPLICATION_CREDENTIALS = os.environ['GOOGLE_APPLICATION_CREDENTIALS']
+TELEGRAM_ID = os.environ['TELEGRAM_ID']
 
 
 class TelegramLogsHandler(logging.Handler):
@@ -60,9 +60,15 @@ if __name__ == "__main__":
 
     vk_session = vk_api.VkApi(token=VK_TOKEN)
     vk_api = vk_session.get_api()
-    longpoll = VkLongPoll(vk_session)
+    try:
+        longpoll = VkLongPoll(vk_session)
+    except Exception as e:
+        logger.critical(e, exc_info=True)
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
-            echo(event, vk_api)
+            try:
+                echo(event, vk_api)
+            except Exception as e:
+                logger.warning(e, exc_info=True)
 
 
