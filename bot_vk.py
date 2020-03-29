@@ -3,19 +3,33 @@ import os
 import vk_api
 from vk_api.longpoll import VkLongPoll, VkEventType
 import random
+import logging
+import telegram
+
 
 load_dotenv()
-VK_TOKEN = os.getenv('VK_TOKEN')
-PROJECT_ID = os.getenv('PROJECT_ID')
+TELEGRAM_TOKEN = os.getenv['TELEGRAM_TOKEN']
+VK_TOKEN = os.getenv['VK_TOKEN']
+PROJECT_ID = os.getenv['PROJECT_ID']
 LANGUAGE_CODE = 'ru'
-GOOGLE_APPLICATION_CREDENTIALS = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+GOOGLE_APPLICATION_CREDENTIALS = os.getenv['GOOGLE_APPLICATION_CREDENTIALS']
+TELEGRAM_ID = os.getenv['TELEGRAM_ID']
+
+
+class TelegramLogsHandler(logging.Handler):
+
+    def __init__(self, tg_bot, chat_id):
+        super().__init__()
+        self.chat_id = chat_id
+        self.tg_bot = tg_bot
+
+    def emit(self, record):
+        log_entry = self.format(record)
+        self.tg_bot.send_message(chat_id=self.chat_id, text=log_entry)
 
 
 def detect_intent_texts(project_id, session_id, text, language_code):
-    """Returns the result of detect intent with texts as inputs.
 
-    Using the same `session_id` between requests allows continuation
-    of the conversation."""
     import dialogflow_v2 as dialogflow
     session_client = dialogflow.SessionsClient()
     session = session_client.session_path(project_id, session_id)
@@ -39,6 +53,11 @@ def echo(event, vk_api):
 
 
 if __name__ == "__main__":
+    tg_bot = telegram.Bot(token=TELEGRAM_TOKEN)
+    logger = logging.getLogger('telegram_logger')
+    logger.setLevel(logging.WARNING)
+    logger.addHandler(TelegramLogsHandler(tg_bot, TELEGRAM_ID))
+
     vk_session = vk_api.VkApi(token=VK_TOKEN)
     vk_api = vk_session.get_api()
     longpoll = VkLongPoll(vk_session)
@@ -46,15 +65,4 @@ if __name__ == "__main__":
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
             echo(event, vk_api)
 
-# vk_session = vk_api.VkApi(token=VK_TOKEN)
-#
-# longpoll = VkLongPoll(vk_session)
-#
-# for event in longpoll.listen():
-#     if event.type == VkEventType.MESSAGE_NEW:
-#         print('Новое сообщение:')
-#         if event.to_me:
-#             print('Для меня от: ', event.user_id)
-#         else:
-#             print('От меня для: ', event.user_id)
-#         print('Текст:', event.text)
+
