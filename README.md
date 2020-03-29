@@ -15,7 +15,7 @@ TELEGRAM_TOKEN='4645646:asd4a6dadawee4da6d4s'
 TELEGRAM_ID='123456789'
 PROJECT_ID='devman-support-bot-269007'
 VK_TOKEN='7fe50745b17ebda65a722b03b884419409747760d218b360b4efdd83c6b32b3fca86f05a4f1d52029fe81'
-GOOGLE_APPLICATION_CREDENTIALS='Devman support bot.json'
+GOOGLE_APPLICATION_CREDENTIALS='google-credentials.json'
 GOOGLE_CREDENTIALS='your Google credintials'
 ```
 DEVMAN_TOKEN can be take it from [Devman](https://dvmn.org/api/docs/).
