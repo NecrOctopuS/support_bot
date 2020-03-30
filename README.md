@@ -3,6 +3,8 @@
 The program answer for users messages in [Telegram](https://telegram.org/) and [VK](https://vk.com/) according [DialogFlow](https://dialogflow.cloud.google.com/) intents.
 
 Dialogflow is a Google-owned developer of human–computer interaction technologies based on natural language conversations.
+
+![](https://github.com/NecrOctopuS/support_bot/blob/master/Bot.gif)
  
 ### How to install
 
