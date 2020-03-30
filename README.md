@@ -2,6 +2,8 @@
 
 The program answer for users messages in [Telegram](https://telegram.org/) and [VK](https://vk.com/) according [DialogFlow](https://dialogflow.cloud.google.com/) intents.
 
+Dialogflow is a Google-owned developer of human–computer interaction technologies based on natural language conversations.
+ 
 ### How to install
 
 Then you need to deploy this project to [Heroku](https://heroku.com/)
