@@ -28,6 +28,12 @@ class TelegramLogsHandler(logging.Handler):
         self.tg_bot.send_message(chat_id=self.chat_id, text=log_entry)
 
 
+tg_bot = telegram.Bot(token=TELEGRAM_TOKEN)
+logger = logging.getLogger('telegram_logger')
+logger.setLevel(logging.WARNING)
+logger.addHandler(TelegramLogsHandler(tg_bot, TELEGRAM_ID))
+
+
 def detect_intent_texts(project_id, session_id, text, language_code):
     session_client = dialogflow.SessionsClient()
     session = session_client.session_path(project_id, session_id)
@@ -51,11 +57,6 @@ def echo(event, vk_api):
 
 
 if __name__ == "__main__":
-    tg_bot = telegram.Bot(token=TELEGRAM_TOKEN)
-    logger = logging.getLogger('telegram_logger')
-    logger.setLevel(logging.WARNING)
-    logger.addHandler(TelegramLogsHandler(tg_bot, TELEGRAM_ID))
-
     vk_session = vk_api.VkApi(token=VK_TOKEN)
     vk_api = vk_session.get_api()
     try:
@@ -68,5 +69,3 @@ if __name__ == "__main__":
                 echo(event, vk_api)
             except Exception as e:
                 logger.warning(e, exc_info=True)
-
-
