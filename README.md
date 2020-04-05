@@ -22,23 +22,25 @@ VK_TOKEN='7fe50745b17ebda65a722b03b884419409747760d218b360b4efdd83c6b32b3fca86f0
 GOOGLE_APPLICATION_CREDENTIALS='google-credentials.json'
 GOOGLE_CREDENTIALS='your Google credintials'
 ```
-DEVMAN_TOKEN can be take it from [Devman](https://dvmn.org/api/docs/).
+`DEVMAN_TOKEN` can be take it from [Devman](https://dvmn.org/api/docs/).
 
-TELEGRAM_TOKEN can be take it from [BotFather](https://telegram.me/BotFather) by type `/start`
+`TELEGRAM_TOKEN` can be take it from [BotFather](https://telegram.me/BotFather) by type `/start`
 `/newbot`.
 
-TELEGRAM_ID can be take it from [userinfobot](https://telegram.me/userinfobot) by type `/start`.
+`TELEGRAM_ID` can be take it from [userinfobot](https://telegram.me/userinfobot) by type `/start`.
 
-PROJECT_ID it is your Project ID from [DialogFlow](https://dialogflow.cloud.google.com/).
+`PROJECT_ID` it is your Project ID from [DialogFlow](https://dialogflow.cloud.google.com/).
 
-VK_TOKEN can be taken from settings API for your group in [VK](https://vk.com/).
+`VK_TOKEN` can be taken from settings API for your group in [VK](https://vk.com/).
 
-GOOGLE_APPLICATION_CREDENTIALS can be taken from [Google](https://cloud.google.com/docs/authentication/getting-started)
+`GOOGLE_APPLICATION_CREDENTIALS` can be taken from [Google](https://cloud.google.com/docs/authentication/getting-started)
 
 After that in Resources you need turn on bot.
 
 Also you need to run command
-`heroku buildpacks:add https://github.com/gerywahyunugraha/heroku-google-application-credentials-buildpack`
+```
+heroku buildpacks:add https://github.com/gerywahyunugraha/heroku-google-application-credentials-buildpack
+```
 
 ### How to run
 
