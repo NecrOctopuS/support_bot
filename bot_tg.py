@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 import logging
 import os
 import telegram
+import dialogflow_v2 as dialogflow
 
 load_dotenv()
 TELEGRAM_TOKEN = os.environ['TELEGRAM_TOKEN']
@@ -39,7 +40,6 @@ def help(bot, update):
 
 
 def detect_intent_texts(project_id, session_id, text, language_code):
-    import dialogflow_v2 as dialogflow
     session_client = dialogflow.SessionsClient()
     session = session_client.session_path(project_id, session_id)
     text_input = dialogflow.types.TextInput(text=text, language_code=language_code)
