@@ -5,7 +5,7 @@ from vk_api.longpoll import VkLongPoll, VkEventType
 import random
 import logging
 import telegram
-import dialogflow_v2 as dialogflow
+from bot_tools import TelegramLogsHandler, detect_intent_texts_without_fallback
 
 load_dotenv()
 TELEGRAM_TOKEN = os.environ['TELEGRAM_TOKEN']
@@ -15,39 +15,14 @@ LANGUAGE_CODE = 'ru'
 GOOGLE_APPLICATION_CREDENTIALS = os.environ['GOOGLE_APPLICATION_CREDENTIALS']
 TELEGRAM_ID = os.environ['TELEGRAM_ID']
 
-
-class TelegramLogsHandler(logging.Handler):
-
-    def __init__(self, tg_bot, chat_id):
-        super().__init__()
-        self.chat_id = chat_id
-        self.tg_bot = tg_bot
-
-    def emit(self, record):
-        log_entry = self.format(record)
-        self.tg_bot.send_message(chat_id=self.chat_id, text=log_entry)
-
-
 tg_bot = telegram.Bot(token=TELEGRAM_TOKEN)
 logger = logging.getLogger('telegram_logger')
 logger.setLevel(logging.WARNING)
 logger.addHandler(TelegramLogsHandler(tg_bot, TELEGRAM_ID))
 
 
-def detect_intent_texts(project_id, session_id, text, language_code):
-    session_client = dialogflow.SessionsClient()
-    session = session_client.session_path(project_id, session_id)
-    text_input = dialogflow.types.TextInput(text=text, language_code=language_code)
-    query_input = dialogflow.types.QueryInput(text=text_input)
-    response = session_client.detect_intent(session=session, query_input=query_input)
-    if not response.query_result.intent.is_fallback:
-        return response.query_result.fulfillment_text
-    else:
-        return None
-
-
 def echo(event, vk_api):
-    text = detect_intent_texts(PROJECT_ID, event.user_id, event.text, LANGUAGE_CODE)
+    text = detect_intent_texts_without_fallback(PROJECT_ID, event.user_id, event.text, LANGUAGE_CODE)
     if text:
         vk_api.messages.send(
             user_id=event.user_id,

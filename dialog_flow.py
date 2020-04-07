@@ -40,3 +40,7 @@ def main():
     intents = create_intents_from_file(FILENAME)
     for intent in intents:
         response = client.create_intent(parent, intent)
+
+
+if __name__ == '__main__':
+    main()
