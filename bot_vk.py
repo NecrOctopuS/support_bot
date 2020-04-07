@@ -62,10 +62,10 @@ if __name__ == "__main__":
     try:
         longpoll = VkLongPoll(vk_session)
     except Exception as e:
-        logger.critical(e, exc_info=True)
+        logger.exception(e)
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
             try:
                 echo(event, vk_api)
             except Exception as e:
-                logger.warning(e, exc_info=True)
+                logger.exception(e)
