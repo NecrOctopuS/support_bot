@@ -18,7 +18,7 @@ TELEGRAM_ID = os.environ['TELEGRAM_ID']
 logger = logging.getLogger('telegram_logger')
 
 
-def echo(event, vk_api):
+def reply(event, vk_api):
     text = detect_intent_texts_without_fallback(PROJECT_ID, event.user_id, event.text, LANGUAGE_CODE)
     if text:
         vk_api.messages.send(
@@ -41,6 +41,6 @@ if __name__ == "__main__":
     for event in longpoll.listen():
         if event.type == VkEventType.MESSAGE_NEW and event.to_me:
             try:
-                echo(event, vk_api)
+                reply(event, vk_api)
             except Exception as e:
                 logger.exception(e)

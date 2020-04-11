@@ -24,12 +24,12 @@ def help(bot, update):
     update.message.reply_text('Help!')
 
 
-def echo(bot, update):
+def reply(bot, update):
     text = detect_intent_texts(PROJECT_ID, update.message.from_user['id'], update.message.text, LANGUAGE_CODE)
     update.message.reply_text(text)
 
 
-def error(bot, update, error):
+def log_error(bot, update, error):
     logger.warning('Update "%s" caused error "%s"', update, error)
 
 
@@ -41,8 +41,8 @@ def main():
     dp = updater.dispatcher
     dp.add_handler(CommandHandler("start", start))
     dp.add_handler(CommandHandler("help", help))
-    dp.add_handler(MessageHandler(Filters.text, echo))
-    dp.add_error_handler(error)
+    dp.add_handler(MessageHandler(Filters.text, reply))
+    dp.add_error_handler(log_error)
     updater.start_polling()
     updater.idle()
 
