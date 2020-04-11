@@ -13,10 +13,7 @@ GOOGLE_APPLICATION_CREDENTIALS = os.environ['GOOGLE_APPLICATION_CREDENTIALS']
 TELEGRAM_ID = os.environ['TELEGRAM_ID']
 LANGUAGE_CODE = 'ru'
 
-tg_bot = telegram.Bot(token=TELEGRAM_TOKEN)
 logger = logging.getLogger('telegram_logger')
-logger.setLevel(logging.WARNING)
-logger.addHandler(TelegramLogsHandler(tg_bot, TELEGRAM_ID))
 
 
 def start(bot, update):
@@ -37,6 +34,9 @@ def error(bot, update, error):
 
 
 def main():
+    tg_bot = telegram.Bot(token=TELEGRAM_TOKEN)
+    logger.setLevel(logging.WARNING)
+    logger.addHandler(TelegramLogsHandler(tg_bot, TELEGRAM_ID))
     updater = Updater(TELEGRAM_TOKEN)
     dp = updater.dispatcher
     dp.add_handler(CommandHandler("start", start))

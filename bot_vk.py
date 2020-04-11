@@ -15,10 +15,7 @@ LANGUAGE_CODE = 'ru'
 GOOGLE_APPLICATION_CREDENTIALS = os.environ['GOOGLE_APPLICATION_CREDENTIALS']
 TELEGRAM_ID = os.environ['TELEGRAM_ID']
 
-tg_bot = telegram.Bot(token=TELEGRAM_TOKEN)
 logger = logging.getLogger('telegram_logger')
-logger.setLevel(logging.WARNING)
-logger.addHandler(TelegramLogsHandler(tg_bot, TELEGRAM_ID))
 
 
 def echo(event, vk_api):
@@ -32,6 +29,9 @@ def echo(event, vk_api):
 
 
 if __name__ == "__main__":
+    tg_bot = telegram.Bot(token=TELEGRAM_TOKEN)
+    logger.setLevel(logging.WARNING)
+    logger.addHandler(TelegramLogsHandler(tg_bot, TELEGRAM_ID))
     vk_session = vk_api.VkApi(token=VK_TOKEN)
     vk_api = vk_session.get_api()
     try:
