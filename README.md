@@ -8,7 +8,7 @@ Dialogflow is a Google-owned developer of human–computer interaction technolog
  
 ### How to install
 
-Then you need to deploy this project to [Heroku](https://heroku.com/)
+Then you need to deploy this project to [Heroku](https://heroku.com/).
 
 On [Heroku](https://heroku.com/) you need create the app, and connect it to this project.
 
@@ -23,18 +23,18 @@ GOOGLE_APPLICATION_CREDENTIALS='google-credentials.json'
 GOOGLE_CREDENTIALS='your Google credintials'
 FILENAME='questions.json'
 ```
-`DEVMAN_TOKEN` can be take it from [Devman](https://dvmn.org/api/docs/).
+`DEVMAN_TOKEN` can be taken from [Devman](https://dvmn.org/api/docs/).
 
-`TELEGRAM_TOKEN` can be take it from [BotFather](https://telegram.me/BotFather) by type `/start`
+`TELEGRAM_TOKEN` can be taken from [BotFather](https://telegram.me/BotFather) by type `/start`
 `/newbot`.
 
-`TELEGRAM_ID` can be take it from [userinfobot](https://telegram.me/userinfobot) by type `/start`.
+`TELEGRAM_ID` can be taken from [userinfobot](https://telegram.me/userinfobot) by type `/start`.
 
 `PROJECT_ID` it is your Project ID from [DialogFlow](https://dialogflow.cloud.google.com/).
 
 `VK_TOKEN` can be taken from settings API for your group in [VK](https://vk.com/).
 
-`GOOGLE_APPLICATION_CREDENTIALS` can be taken from [Google](https://cloud.google.com/docs/authentication/getting-started)
+`GOOGLE_APPLICATION_CREDENTIALS` can be taken from [Google](https://cloud.google.com/docs/authentication/getting-started).
 
 `FILENAME` it is yours filename for question intents, that you wont to upload to [DialogFlow](https://dialogflow.cloud.google.com/).
 
